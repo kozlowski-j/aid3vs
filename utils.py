@@ -1,6 +1,5 @@
 import requests
 import json
-from openai import OpenAI, OpenAIError
 import os
 
 
@@ -41,29 +40,6 @@ def post_params_to_url(params: str, url: str):
     else:
         print('Failed to send request:', response.status_code, response.text)
 
-
-def get_custom_response(prompt: str, system_message: str) -> str:
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    openai_client = OpenAI(
-        organization='org-JeEFAHu6LLth5RQlRKTfJDwE',
-        project='proj_lAY8moAOvRQmMDewFPPnW1Te',
-        api_key=OPENAI_API_KEY,
-    )
-
-    try:
-        chat_response = openai_client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": system_message},
-                {"role": "user", "content": prompt},
-            ],
-            max_tokens=10000,  # Limit the response length
-            temperature=0.7,  # Adjust creativity (0 = deterministic, 1 = creative)
-        )
-        return chat_response.choices[0].message.content
-    except OpenAIError as e:
-        print(f"An error occurred: {e}")
-        return ""
 
 
 def verify_json(json_str, required_keys=None):

@@ -1,8 +1,15 @@
 import requests
 import json
+import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+POLIGON_BASE_URL = os.getenv("POLIGON_BASE_URL")
+AIDEVS_MY_APIKEY = os.getenv("AIDEVS_MY_APIKEY")
 # data
-data_url = 'https://poligon.aidevs.pl/dane.txt'
+data_url = f"{POLIGON_BASE_URL}/dane.txt"
 
 # Send the GET request
 response = requests.get(data_url)
@@ -17,12 +24,12 @@ else:
     print('Failed to retrieve data:', response.status_code, response.text)
 
 # Define the API endpoint
-verify_url = 'https://poligon.aidevs.pl/verify'
+verify_url = f"{POLIGON_BASE_URL}/verify"
 
 # Define the JSON payload
 payload = {
     "task": "POLIGON",
-    "apikey": "340a21f9-ceb6-4b9c-8ac8-2358a8ca204a",
+    "apikey": AIDEVS_MY_APIKEY,
     "answer": text_data.split('\n')[:2]
 }
 

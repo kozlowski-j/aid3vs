@@ -2,9 +2,12 @@ from openai import OpenAI, OpenAIError
 import os
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_PROJECT_ID = os.getenv("OPENAI_PROJECT_ID")
+OPENAI_ORGANIZATION_ID = os.getenv("OPENAI_ORGANIZATION_ID")
+
 client = OpenAI(
-    organization='org-JeEFAHu6LLth5RQlRKTfJDwE',
-    project='proj_lAY8moAOvRQmMDewFPPnW1Te',
+    organization=OPENAI_ORGANIZATION_ID,
+    project=OPENAI_PROJECT_ID,
     api_key=OPENAI_API_KEY,
 )
 
