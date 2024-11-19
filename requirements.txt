@@ -2,3 +2,5 @@ openai~=1.51.2
 requests~=2.32.3
 python-dotenv
 ollama
+markdownify
+BeautifulSoup4
