@@ -92,7 +92,7 @@ class DocumentToMarkdown:
         response = requests.get(self.base_url)
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Przetwórz obrazy przed konwersją
+        # Process images before conversion
         for img in soup.find_all('img'):
             img_url = urljoin(self.base_url, img.get('src', ''))
             saved_path = self.download_media(img_url, 'image')
@@ -102,7 +102,7 @@ class DocumentToMarkdown:
                 new_p.string = f"[Image description: {image_description}]"
                 img.replace_with(new_p)
         
-        # Przetwórz pliki audio
+        # Process audio files
         for audio in soup.find_all('audio'):
             source = audio.find('source')
             if source:
@@ -111,13 +111,13 @@ class DocumentToMarkdown:
                 if saved_path:
                     transcription = self.transcribe_audio(saved_path)
                     if transcription:
-                        # Stwórz nowy tag p z transkrypcją
+                        # Create new p tag with transcription
                         new_p = soup.new_tag('p')
                         new_p.string = f"[Audio Transcription:\n {transcription}]"
-                        # Zamień tag audio na paragraf z transkrypcją
+                        # Replace audio tag with transcription paragraph
                         audio.replace_with(new_p)
         
-        # Konwertuj HTML na Markdown
+        # Convert HTML to Markdown
         markdown_text = md(str(soup))
         self.markdown_content.append(markdown_text)
         
@@ -214,15 +214,15 @@ class MarkdownAnalyzer:
 
 
 if __name__ == "__main__":
-    # Konwertuj dokument HTML na Markdown
+    # Convert HTML to Markdown
     # converter = DocumentToMarkdown(f'{CENTRALA_BASE_URL}/dane/arxiv-draft.html')
     # converter.process_document()
     
-    # Odczytaj wygenerowany plik markdown
+    # Read generated markdown file
     with open(os.path.join("indexed_content", 'document.md'), 'r', encoding='utf-8') as f:
         markdown_content = f.read()
     
-    # Analizuj zawartość i zapisz wyniki
+    # Analyze content
     analyzer = MarkdownAnalyzer()
     results = analyzer.analyze_markdown(markdown_content)
     analyzer.save_results(results)
