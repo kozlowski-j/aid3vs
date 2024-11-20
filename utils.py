@@ -1,32 +1,20 @@
 import requests
 import json
-import os
 
 
-def get_url_text(url: str) -> str:
-    # Send the GET request
-    response = requests.get(url)
-    text_data = response.text
-    # Check if the request was successful
-    if response.status_code == 200:
-        # Get the text data
-        print('Request successful:', text_data[:100])
-        return text_data
+def post_json_data_to_url(payload: dict, submit_url: str):
+    # Submit the processed output
+    headers = {'Content-Type': 'application/json'}
+    submission_response = requests.post(submit_url, json=payload, headers=headers)
+
+    if submission_response.status_code == 200:
+        print("Submission successful.")
+        print(submission_response.json())
+        print(submission_response.text)
     else:
-        print('Failed to retrieve data:', response.status_code, text_data[:100])
-        return ""
-
-
-def post_json_data_to_url(data: dict, url: str):
-    # Send the POST request
-    response = requests.post(url, data=json.dumps(data))
-
-    # Check the response
-    if response.status_code == 200:
-        print('Response:', response)
-        return response
-    else:
-        print('Failed to send request:', response.status_code, response.text)
+        print(f" Submission failed. Status code: {submission_response.status_code}")
+        print(submission_response.text)
+        print(submission_response.json())
 
 
 def post_params_to_url(params: str, url: str):
@@ -39,7 +27,6 @@ def post_params_to_url(params: str, url: str):
         return response
     else:
         print('Failed to send request:', response.status_code, response.text)
-
 
 
 def verify_json(json_str, required_keys=None):

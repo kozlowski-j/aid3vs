@@ -6,6 +6,8 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 
+from utils import post_json_data_to_url
+
 # Load variables from the .env file
 load_dotenv()
 
@@ -56,19 +58,7 @@ def main():
         "answer": image_url
     }
 
-    # Submit the processed output
-    submit_url = f"{CENTRALA_BASE_URL}/report"
-    headers = {'Content-Type': 'application/json'}
-    submission_response = requests.post(submit_url, json=payload, headers=headers)
-
-    if submission_response.status_code == 200:
-        logging.info("Submission successful.")
-        logging.info(submission_response.json())
-        logging.info(submission_response.text)
-    else:
-        logging.error(f" Submission failed. Status code: {submission_response.status_code}")
-        logging.error(f" submission_response.text")
-
+    post_json_data_to_url(payload, f"{CENTRALA_BASE_URL}/report")
 
 if __name__ == "__main__":
     main()
