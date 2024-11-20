@@ -4,3 +4,4 @@ python-dotenv
 ollama
 markdownify
 BeautifulSoup4
+qdrant-client

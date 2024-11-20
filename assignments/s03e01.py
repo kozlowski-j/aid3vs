@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from utils import post_json_data_to_url
+from utils import post_json_data_to_url, read_txt_files
 
 load_dotenv()
 
@@ -18,18 +18,6 @@ openai_client = OpenAI(
     project=OPENAI_PROJECT_ID,
     api_key=OPENAI_API_KEY,
 )
-
-
-def read_txt_files(data_path: str) -> dict:
-    files_dict = {}
-    
-    for filename in os.listdir(data_path):
-        if filename.endswith(".txt"):
-            file_path = os.path.join(data_path, filename)
-            with open(file_path, 'r', encoding='utf-8') as f:
-                files_dict[filename] = f.read()
-                
-    return files_dict
 
 
 reports = read_txt_files("assignments/data/pliki_z_fabryki")

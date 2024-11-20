@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 
 def post_json_data_to_url(payload: dict, submit_url: str):
@@ -66,3 +67,15 @@ def verify_json(json_str, required_keys=None):
 
     except json.JSONDecodeError:
         raise ValueError("Invalid JSON format.")
+
+
+def read_txt_files(data_path: str) -> dict:
+    files_dict = {}
+    
+    for filename in os.listdir(data_path):
+        if filename.endswith(".txt"):
+            file_path = os.path.join(data_path, filename)
+            with open(file_path, 'r', encoding='utf-8') as f:
+                files_dict[filename] = f.read()
+                
+    return files_dict
