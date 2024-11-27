@@ -12,11 +12,12 @@ def post_json_data_to_url(payload: dict, submit_url: str):
         print("Submission successful.")
         print(submission_response.json())
         print(submission_response.text)
+        return submission_response
     else:
         print(f" Submission failed. Status code: {submission_response.status_code}")
         print(submission_response.text)
         print(submission_response.json())
-
+        return submission_response
 
 def post_params_to_url(params: str, url: str):
     # Send the POST request
