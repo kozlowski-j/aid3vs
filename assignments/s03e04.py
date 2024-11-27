@@ -165,21 +165,21 @@ if __name__ == "__main__":
                 if new_context not in user_prompt:
                     user_prompt += new_context
                 else:
-                    user_prompt += f"\nYOU ALREADY REQUESTED INFORMATION ABOUT {ai_provided_name} for tool `{ai_choice}`."
+                    user_prompt += f"\nYOU ALREADY REQUESTED INFORMATION ABOUT {ai_provided_name} from tool `{ai_choice}`."
         elif ai_choice == "people":
             people_response = get_people_from_api(clean_name(ai_provided_name))
             new_context = f"\n- {ai_provided_name}: {people_response['message'].split(' ')}"
             if new_context not in user_prompt:
                 user_prompt += new_context
             else:
-                user_prompt += f"\nYOU ALREADY REQUESTED INFORMATION ABOUT {ai_provided_name} for tool `{ai_choice}`."
+                user_prompt += f"\nYOU ALREADY REQUESTED INFORMATION ABOUT {ai_provided_name} from tool `{ai_choice}`."
         elif ai_choice == "places":
             places_response = get_places_from_api(clean_name(ai_provided_name))
             new_context = f"\n- {ai_provided_name}: {places_response['message'].split(' ')}"
             if new_context not in user_prompt:
                 user_prompt += new_context
             else:
-                user_prompt += f"\nYOU ALREADY REQUESTED INFORMATION ABOUT {ai_provided_name} for tool `{ai_choice}`."
+                user_prompt += f"\nYOU ALREADY REQUESTED INFORMATION ABOUT {ai_provided_name} from tool `{ai_choice}`."
         else:
             print(f"Invalid choice: {ai_choice}")
             user_prompt += f"\nINVALID CHOICE: {ai_choice}"
